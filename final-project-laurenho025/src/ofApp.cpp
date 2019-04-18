@@ -110,13 +110,13 @@ void ofApp::draw(){
     cam.end();
     
     // Draw the pitch frequency and confidence values
-    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq, 2) + " hz.";
-    ofDrawBitmapString(strpitchfreqvalue, 25, 300);
     ofSetColor(ofColor::white);
     
+    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq, 2) + " hz.";
+    ofDrawBitmapString(strpitchfreqvalue, 15, 240);
+    
     string strpitchconfvalue = "Pitch Confidence: " + ofToString(pitchconf, 2);
-    ofDrawBitmapString(strpitchconfvalue, 25, 350);
-    ofSetColor(ofColor::white);
+    ofDrawBitmapString(strpitchconfvalue, 15, 260);
 
     gui.draw();
 }
