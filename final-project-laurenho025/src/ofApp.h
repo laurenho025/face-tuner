@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxDropdown.h"
+#include "ofxObjLoader.h"
+#include "ofxFacialBlendShape.h"
 
 class ofApp : public ofBaseApp{
 
@@ -25,6 +27,13 @@ class ofApp : public ofBaseApp{
     
     ofxPanel gui;
     
+    // Dropdown note selector
     unique_ptr<ofxDropdown> notesdropdown;
     ofParameter<string> notesoptions;
+    
+    // 3D face animation
+    ofEasyCam cam;
+    ofLight light;
+    ofParameter<float> *emotion;
+    ofxFacialBlendShape face;
 };

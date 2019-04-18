@@ -9,6 +9,122 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>4987A5180838541E8A339295</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxObjLoader.h</string>
+				<key>path</key>
+				<string>../../../../addons/ofxObjLoader/src/ofxObjLoader.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>175ACDC4F17EF5D0EB4728E7</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>4BD52283F4D92523FF9FBD60</string>
+					<string>4987A5180838541E8A339295</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>5254E561B9A02CF8C4A58937</key>
+			<dict>
+				<key>fileRef</key>
+				<string>4BD52283F4D92523FF9FBD60</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>4BD52283F4D92523FF9FBD60</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxObjLoader.cpp</string>
+				<key>path</key>
+				<string>../../../../addons/ofxObjLoader/src/ofxObjLoader.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>4871476B411FFA9EFD7C4871</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>glm.h</string>
+				<key>path</key>
+				<string>../../../../addons/ofxObjLoader/libs/glm.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>F15A1C273BC5CB89D8384F4D</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>DB047E803CC4F9D3BA7B0690</string>
+					<string>4871476B411FFA9EFD7C4871</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libs</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>2081A4BC018CBE6E3D670839</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>F15A1C273BC5CB89D8384F4D</string>
+					<string>175ACDC4F17EF5D0EB4728E7</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxObjLoader</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>22EFBC82E4D9A66E90425A41</key>
+			<dict>
+				<key>fileRef</key>
+				<string>DB047E803CC4F9D3BA7B0690</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>DB047E803CC4F9D3BA7B0690</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.c</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>glm.c</string>
+				<key>path</key>
+				<string>../../../../addons/ofxObjLoader/libs/glm.c</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>78F524ADA8DDC5DF3F460FA5</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -3009,6 +3125,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -3079,6 +3197,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
@@ -3122,6 +3242,7 @@ fi
 					<string>3C927DC599F16C02E7D12F30</string>
 					<string>22B3F6C17611F85585125A5E</string>
 					<string>480A780D8D0308AE4A368801</string>
+					<string>2081A4BC018CBE6E3D670839</string>
 				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
@@ -5916,6 +6037,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -6005,6 +6128,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -6051,6 +6176,8 @@ fi
 					<string>A2953313263AE1234930247E</string>
 					<string>413B65A0F41D699F37AB4C06</string>
 					<string>B07D6C52C2FE371D2B91739E</string>
+					<string>22EFBC82E4D9A66E90425A41</string>
+					<string>5254E561B9A02CF8C4A58937</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>
@@ -6181,6 +6308,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_DEBUG)</string>
@@ -6265,6 +6394,8 @@ fi
 						<string>../../../../addons/ofxDropdown/src</string>
 						<string>../../../../addons/ofxFacialBlendShape/src</string>
 						<string>../../../../addons/ofxGui/src</string>
+						<string>../../../../addons/ofxObjLoader/libs</string>
+						<string>../../../../addons/ofxObjLoader/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>

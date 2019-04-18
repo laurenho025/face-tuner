@@ -3,3 +3,4 @@ ofxAudioDecoder
 ofxDropdown
 ofxFacialBlendShape
 ofxGui
+ofxObjLoader
