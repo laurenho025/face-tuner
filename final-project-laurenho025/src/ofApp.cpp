@@ -96,6 +96,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
+    // Code used from the ofxFacialBlendShape example project
     float length = 200;
     if (x > 0 && x < length) {
         cam.disableMouseInput();
