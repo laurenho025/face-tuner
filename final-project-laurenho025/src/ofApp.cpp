@@ -2,7 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+    gui.setup();
+    
+    // Sets note selector dropdown
+    notesoptions.setName("Choose a note");
+    notesdropdown = make_unique<ofxDropdown>(notesoptions);
+    vector<string> notes = { "A", "B", "C", "D", "E", "F", "G" };
+    notesdropdown->add(notes);
+    gui.add(notesdropdown.get());
 }
 
 //--------------------------------------------------------------
@@ -12,7 +19,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    gui.draw();
 }
 
 //--------------------------------------------------------------

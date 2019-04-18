@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
+#include "ofxDropdown.h"
 
 class ofApp : public ofBaseApp{
 
@@ -20,5 +22,9 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+    
+    ofxPanel gui;
+    
+    unique_ptr<ofxDropdown> notesdropdown;
+    ofParameter<string> notesoptions;
 };
