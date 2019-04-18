@@ -48,16 +48,49 @@ void ofApp::setup(){
     
     face.setEmotion(emotion);
     face.init();
+    
+    // Set up audio analyzer
+    audioanalyzer.setup(44100, 512, 2);
+    // Set up ofSoundStream to take input from default mic
+    soundstream.printDeviceList();
+    left.assign(256, 0.0);
+    right.assign(256, 0.0);
+    ofSoundStreamSettings settings;
+    auto devices = soundstream.getMatchingDevices("default");
+    if(!devices.empty()){
+        settings.setInDevice(devices[0]);
+    }
+    settings.setInListener(this);
+    settings.sampleRate = 44100;
+    settings.numOutputChannels = 0;
+    settings.numInputChannels = 2;
+    settings.bufferSize = 256;
+    
+    soundstream.setup(settings);
+}
+
+//--------------------------------------------------------------
+void ofApp::audioIn(ofSoundBuffer &input){
+    audioanalyzer.analyze(input);
+}
+
+void audioOut(){
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-      face.update();
+    face.update();
+    
+    // Get values from audioAnalyzer
+    pitchfreq = audioanalyzer.getValue(PITCH_FREQ, 0);
+    pitchconf = audioanalyzer.getValue(PITCH_CONFIDENCE, 0);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
     // Code used from the ofxFacialBlendShape example project
+    // Draw the face animation
     ofBackgroundGradient(ofColor(64), ofColor(0));
     
     cam.begin();
@@ -76,6 +109,15 @@ void ofApp::draw(){
     
     cam.end();
     
+    // Draw the pitch frequency and confidence values
+    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq, 2) + " hz.";
+    ofDrawBitmapString(strpitchfreqvalue, 25, 300);
+    ofSetColor(ofColor::white);
+    
+    string strpitchconfvalue = "Pitch Confidence: " + ofToString(pitchconf, 2);
+    ofDrawBitmapString(strpitchconfvalue, 25, 350);
+    ofSetColor(ofColor::white);
+
     gui.draw();
 }
 

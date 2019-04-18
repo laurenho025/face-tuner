@@ -5,6 +5,7 @@
 #include "ofxDropdown.h"
 #include "ofxObjLoader.h"
 #include "ofxFacialBlendShape.h"
+#include "ofxAudioAnalyzer.h"
 
 class ofApp : public ofBaseApp{
 
@@ -25,6 +26,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        void audioIn(ofSoundBuffer &input);
+        void audioOut();
+    
     ofxPanel gui;
     
     // Dropdown note selector
@@ -36,4 +40,13 @@ class ofApp : public ofBaseApp{
     ofLight light;
     ofParameter<float> *emotion;
     ofxFacialBlendShape face;
+    
+    // Audio analyzer
+    ofxAudioAnalyzer audioanalyzer;
+    float pitchfreq;
+    float pitchconf;
+    
+    ofSoundStream soundstream;
+    vector<float> left;
+    vector<float> right;
 };
