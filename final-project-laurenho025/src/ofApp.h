@@ -6,6 +6,7 @@
 #include "ofxObjLoader.h"
 #include "ofxFacialBlendShape.h"
 #include "ofxAudioAnalyzer.h"
+#include "ofxAubio.h"
 
 class ofApp : public ofBaseApp{
 
@@ -46,12 +47,19 @@ class ofApp : public ofBaseApp{
     float pitchfreq;
     float pitchconf;
     
+    // Audio input
     ofSoundStream soundstream;
     vector<float> left;
     vector<float> right;
     
-    int numupdated;
-    vector<int> firstpitches;
-    bool firstpitchmeasure;
+    // Accounting for room's ambient sound
+    int updatecount;
+    vector<int> ambientpitches;
+    bool findingambientpitch;
     int ambientpitchfreq;
+    
+    // Aubio pitch detection
+    ofxAubioPitch pitch;
+    ofxFloatSlider midiPitch;
+
 };

@@ -1,3 +1,4 @@
+ofxAubio
 ofxAudioAnalyzer
 ofxAudioDecoder
 ofxDropdown

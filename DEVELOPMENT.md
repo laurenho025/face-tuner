@@ -5,3 +5,6 @@ Most of this week's work was focused on coming up with an idea, finding the appl
 
 ## Week 2
 During week 2, I mostly worked on the GUI template for my application and setting up the libraries in my project. I had more difficulties with getting the project to build with aubio, so I decided to switch to the ofxAudioAnalyzer add-on instead, which also has a pitch analyzer algorithm. This week I figured out the pitch frequency and confidence analyzer. Going forward, I have to implement a class that calculates the note given a frequency in hz, and the absolute difference between the input frequency and the target frequency. After doing this, I can associate the size of this difference with specific emotions, which requires figuring out how to integrate the two libraries together.
+
+## Week 3
+Difficulties: account for the ambient sound in the room, had to switch to aubio which has a much more standardized/stable pitch detection
