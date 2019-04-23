@@ -86,14 +86,14 @@ void ofApp::update(){
     pitchfreq = audioanalyzer.getValue(PITCH_FREQ, 0);
     pitchconf = audioanalyzer.getValue(PITCH_CONFIDENCE, 0);
     
-    if (notesdropdown->getParameter().toString() != "A") {
-        emotion[4].set(1);
-    }
-    
-    if (notesdropdown->getParameter().toString() == "A") {
-        emotion[4].set(0);
-        emotion[2].set(1);
-    }
+//    if (notesdropdown->getParameter().toString() != "A") {
+//        emotion[4].set(1);
+//    }
+//    
+//    if (notesdropdown->getParameter().toString() == "A") {
+//        emotion[4].set(0);
+//        emotion[2].set(1);
+//    }
 }
 
 //--------------------------------------------------------------
