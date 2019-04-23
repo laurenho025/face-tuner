@@ -49,4 +49,9 @@ class ofApp : public ofBaseApp{
     ofSoundStream soundstream;
     vector<float> left;
     vector<float> right;
+    
+    int numupdated;
+    vector<int> firstpitches;
+    bool firstpitchmeasure;
+    int ambientpitchfreq;
 };

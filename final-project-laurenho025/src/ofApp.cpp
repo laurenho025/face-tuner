@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <map>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -51,7 +52,10 @@ void ofApp::setup(){
     face.init();
     
     // Set up audio analyzer
-    audioanalyzer.setup(44100, 512, 2);
+    audioanalyzer.setup(44100, 256, 2);
+    firstpitchmeasure = true;
+    numupdated = 0;
+    
     // Set up ofSoundStream to take input from default mic
     soundstream.printDeviceList();
     left.assign(256, 0.0);
@@ -73,6 +77,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::audioIn(ofSoundBuffer &input){
     audioanalyzer.analyze(input);
+    numupdated++;
 }
 
 void audioOut(){
@@ -80,11 +85,38 @@ void audioOut(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
     face.update();
     
     // Get values from audioAnalyzer
     pitchfreq = audioanalyzer.getValue(PITCH_FREQ, 0);
     pitchconf = audioanalyzer.getValue(PITCH_CONFIDENCE, 0);
+    
+    // Find the mode of pitches
+    if (numupdated <= 1000) {
+        firstpitches.push_back(floor(pitchfreq / 10) * 10);
+    }
+    if (firstpitchmeasure && numupdated > 1000) {
+        firstpitchmeasure = false;
+        std::map<int, int> freq;
+        for (int i = 0; i < firstpitches.size(); i++) {
+            if (freq.find(firstpitches[i]) == freq.end()) {
+                // create new pair
+                freq.insert(pair<int, int>(firstpitches[i], 1));
+            } else {
+                // increment the key's frequency
+                freq.find(firstpitches[i])->second++;
+            }
+        }
+        // Find the mode frequency
+        int maxtimesappeared = freq.begin()->second;
+        for (map<int, int>::iterator i = freq.begin(); i != freq.end(); i++) {
+            if (i->second > maxtimesappeared) {
+                maxtimesappeared = i->second;
+                ambientpitchfreq = i->first;
+            }
+        }
+    }
     
 //    if (notesdropdown->getParameter().toString() != "A") {
 //        emotion[4].set(1);
@@ -122,12 +154,17 @@ void ofApp::draw(){
     // Draw the pitch frequency and confidence values
     ofSetColor(ofColor::white);
     
-    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq, 2) + " hz.";
+    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq - ambientpitchfreq, 2) + " hz.";
     ofDrawBitmapString(strpitchfreqvalue, 15, 240);
     
     string strpitchconfvalue = "Pitch Confidence: " + ofToString(pitchconf, 2);
     ofDrawBitmapString(strpitchconfvalue, 15, 260);
+    
+    string strfirstpitch = "Ambient Pitch: " + ofToString(ambientpitchfreq, 2) + " hz.";
+    ofDrawBitmapString(strfirstpitch, 15, 280);
 
+    ofDrawBitmapString(numupdated, 15, 300);
+    
     gui.draw();
 }
 
