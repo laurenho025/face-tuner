@@ -1,6 +1,4 @@
 ofxAubio
-ofxAudioAnalyzer
-ofxAudioDecoder
 ofxDropdown
 ofxFacialBlendShape
 ofxGui

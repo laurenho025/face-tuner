@@ -51,12 +51,8 @@ void ofApp::setup(){
     face.setEmotion(emotion);
     face.init();
     
-    // Set up audio analyzer
-    audioanalyzer.setup(44100, 256, 2);
-    
-    // Set up variables needed to account for room's ambient pitch
-    findingambientpitch = true;
-    updatecount = 0;
+    // Set up aubio pitch object
+    pitch.setup();
     
     // Set up ofSoundStream to take input from default mic
     soundstream.printDeviceList();
@@ -74,16 +70,10 @@ void ofApp::setup(){
     settings.bufferSize = 256;
     
     soundstream.setup(settings);
-    
-    // Set up aubio pitch object
-    pitch.setup();
 }
 
 //--------------------------------------------------------------
 void ofApp::audioIn(ofSoundBuffer &input){
-    audioanalyzer.analyze(input);
-    updatecount++;
-    
     pitch.audioIn(input.getBuffer().data(), 256, 2);
 }
 
@@ -93,36 +83,6 @@ void audioOut(){
 //--------------------------------------------------------------
 void ofApp::update(){
     face.update();
-    
-    // Get pitch values from audioAnalyzer
-    pitchfreq = audioanalyzer.getValue(PITCH_FREQ, 0);
-    pitchconf = audioanalyzer.getValue(PITCH_CONFIDENCE, 0);
-    
-//    // Gather the first 500 pitch measures rounded to the nearest ten
-//    // Then, create a map from the gathered pitches to their frequency (number times appeared)
-//    if (updatecount <= 500) {
-//        ambientpitches.push_back(floor(pitchfreq / 10) * 10);
-//    } else if (findingambientpitch && updatecount > 500) {
-//        findingambientpitch = false;
-//        std::map<int, int> freq;
-//        for (int i = 0; i < ambientpitches.size(); i++) {
-//            if (freq.find(ambientpitches[i]) == freq.end()) {
-//                // If this pitch isn't in the map yet, insert a new pair
-//                freq.insert(pair<int, int>(ambientpitches[i], 1));
-//            } else {
-//                // If this pitch is already in the map, increment this key's frequency
-//                freq.find(ambientpitches[i])->second++;
-//            }
-//        }
-//        // Find the pitch that appears with the most frequency (this is the room's ambient pitch)
-//        int maxtimesappeared = freq.begin()->second;
-//        for (map<int, int>::iterator i = freq.begin(); i != freq.end(); i++) {
-//            if (i->second > maxtimesappeared) {
-//                maxtimesappeared = i->second;
-//                ambientpitchfreq = i->first;
-//            }
-//        }
-//    }
     
 //    // How to get selected pitch from dropdown
 //    if (notesdropdown->getParameter().toString() != "A") {
@@ -157,25 +117,10 @@ void ofApp::draw(){
     
     cam.end();
     
-    if (pitch.latestPitch) {
-        midiPitch = pitch.latestPitch;
-    }
-    
-    
-    // Draw the pitch frequency, pitch confidence, and ambient pitch
+    // Draw the pitch MIDI note
     ofSetColor(ofColor::white);
-    
-    string strpitchfreqvalue = "Pitch Frequency: " + ofToString(pitchfreq /*- ambientpitchfreq*/, 2) + " hz.";
-    ofDrawBitmapString(strpitchfreqvalue, 15, 240);
-    
-    string strpitchconfvalue = "Pitch Confidence: " + ofToString(pitchconf, 2);
-    ofDrawBitmapString(strpitchconfvalue, 15, 260);
-    
-    string straubiopitch = "Aubio Pitch: " + ofToString(pitch.latestPitch, 2);
+    string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, 2);
     ofDrawBitmapString(straubiopitch, 15, 280);
-    
-//    string strambientpitch = "Ambient Pitch: " + ofToString(ambientpitchfreq, 2) + " hz.";
-//    ofDrawBitmapString(strambientpitch, 15, 280);
     
     gui.draw();
 }
