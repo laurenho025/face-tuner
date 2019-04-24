@@ -13,6 +13,7 @@
 		22EFBC82E4D9A66E90425A41 /* glm.c in Sources */ = {isa = PBXBuildFile; fileRef = DB047E803CC4F9D3BA7B0690 /* glm.c */; };
 		2A29FF5839ED971EF29C0C25 /* ofxFacialBlendShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B958A3EFF76369B65C0DD598 /* ofxFacialBlendShape.cpp */; };
 		3848DBEE2270123C000F4B66 /* aubio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3848DBED2270123C000F4B66 /* aubio.framework */; };
+		3848DBF122701A40000F4B66 /* tunertests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3848DBF022701A40000F4B66 /* tunertests.cpp */; };
 		413B65A0F41D699F37AB4C06 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99B37C8367EB4811EEF8E78D /* ofxSliderGroup.cpp */; };
 		4B2FE93AF91D10231E1C4493 /* ofxAubioPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2324422678F36B6E07DC9D1A /* ofxAubioPitch.cpp */; };
 		5254E561B9A02CF8C4A58937 /* ofxObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BD52283F4D92523FF9FBD60 /* ofxObjLoader.cpp */; };
@@ -56,6 +57,7 @@
 		27CE0445D02D803853EC74E8 /* ofxPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxPanel.cpp; path = ../../../../addons/ofxGui/src/ofxPanel.cpp; sourceTree = SOURCE_ROOT; };
 		2B01BD0CEA4EA580DAC26C58 /* ofxAubioBlock.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAubioBlock.h; path = ../../../../addons/ofxAubio/src/ofxAubioBlock.h; sourceTree = SOURCE_ROOT; };
 		3848DBED2270123C000F4B66 /* aubio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = aubio.framework; path = "aubio-0.4.4.darwin_framework/aubio.framework"; sourceTree = "<group>"; };
+		3848DBF022701A40000F4B66 /* tunertests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tunertests.cpp; sourceTree = "<group>"; };
 		44C0961009D36089EBA9C36F /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../../addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
 		481083C90D96C0AAA580E194 /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxButton.h; path = ../../../../addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
 		4871476B411FFA9EFD7C4871 /* glm.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glm.h; path = ../../../../addons/ofxObjLoader/libs/glm.h; sourceTree = SOURCE_ROOT; };
@@ -339,6 +341,14 @@
 				A1BEA83BD78DC7FE84D24370 /* ofxAubioPitch.h */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		3848DBEF22701A16000F4B66 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				3848DBF022701A40000F4B66 /* tunertests.cpp */,
+			);
+			path = test;
 			sourceTree = "<group>";
 		};
 		3C927DC599F16C02E7D12F30 /* ofxDropdown */ = {
@@ -700,6 +710,7 @@
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
+				3848DBEF22701A16000F4B66 /* test */,
 				E42962AA2163EDD300A6A9E2 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				3848DBED2270123C000F4B66 /* aubio.framework */,
@@ -852,6 +863,7 @@
 				CA7E31A02CAF4836F8551ADD /* ofxColorPicker.cpp in Sources */,
 				CFFFBA144E8160ECC1C97982 /* ofxGuiGroup.cpp in Sources */,
 				75E465AE7EDAD189B42B8D95 /* ofxInputField.cpp in Sources */,
+				3848DBF122701A40000F4B66 /* tunertests.cpp in Sources */,
 				81BE400C35825643551A3190 /* ofxLabel.cpp in Sources */,
 				CE6F136678038366969711AB /* ofxPanel.cpp in Sources */,
 				A2953313263AE1234930247E /* ofxSlider.cpp in Sources */,
