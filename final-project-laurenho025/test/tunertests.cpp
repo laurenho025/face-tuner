@@ -7,6 +7,22 @@ int main (int argc, char* argv[]) {
     return result;
 }
 
-TEST_CASE("Catch working") {
-    REQUIRE(1 == 1);
+TEST_CASE("Find closest pitch to tune to given selected note and measured MIDI number") {
+    Tuner tuner;
+    
+    SECTION("Measured MIDI is below 21") {
+        REQUIRE(tuner.FindClosestPitch("A", 5) == 0);
+    }
+    
+    SECTION("Measured MIDI is above 127") {
+        REQUIRE(tuner.FindClosestPitch("A", 200) == 0);
+    }
+    
+    SECTION("Measured MIDI is already at target note") {
+        REQUIRE(tuner.FindClosestPitch("C", 60) == 60);
+    }
+    
+    SECTION("Measured MIDI not already at target note") {
+        REQUIRE(tuner.FindClosestPitch("C", 62) == 60);
+    }
 }
