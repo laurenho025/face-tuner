@@ -26,3 +26,10 @@ TEST_CASE("Find closest pitch to tune to given selected note and measured MIDI n
         REQUIRE(tuner.FindClosestPitch("C", 62) == 60);
     }
 }
+
+TEST_CASE("FindClosestPitch correctly calculates the MIDI note difference") {
+    Tuner tuner;
+    int targetmidi = tuner.FindClosestPitch("C", 65); // Closest 'C' MIDI note to 65 is 60
+    
+    REQUIRE(tuner.GetDifference() == 5);
+}
