@@ -6,6 +6,7 @@
 #include "ofxObjLoader.h"
 #include "ofxFacialBlendShape.h"
 #include "ofxAubio.h"
+#include "tuner.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -48,4 +49,7 @@ class ofApp : public ofBaseApp{
     
     // Aubio pitch detection
     ofxAubioPitch pitch;
+    
+    // Tuner object
+    Tuner tuner;
 };

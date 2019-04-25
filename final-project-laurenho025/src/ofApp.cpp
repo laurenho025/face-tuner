@@ -84,15 +84,40 @@ void audioOut(){
 void ofApp::update(){
     face.update();
     
-//    // How to get selected pitch from dropdown
-//    if (notesdropdown->getParameter().toString() != "A") {
-//        emotion[4].set(1);
-//    }
-//
-//    if (notesdropdown->getParameter().toString() == "A") {
-//        emotion[4].set(0);
-//        emotion[2].set(1);
-//    }
+    // Calculate tuner values
+    int closestpitch = tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch);
+    
+    // Reset the facial emotions
+    for (int i = 0; i < 9; i++) {
+        emotion[i].set(0);
+    }
+    
+    if (closestpitch != 0) {
+        map<string, double> emotionweights = tuner.ClassifyDifference();
+        // Set the classified emotions calculated from the map
+        map<string, double>::iterator it;
+        for (it = emotionweights.begin(); it != emotionweights.end(); it++) {
+            if (it->first == "anger") {
+                emotion[0].set(it->second);
+            } else if (it->first == "cry") {
+                emotion[1].set(it->second);
+            } else if (it->first == "fury") {
+                emotion[2].set(it->second);
+            } else if (it->first == "grin") {
+                emotion[3].set(it->second);
+            } else if (it->first == "laugh") {
+                emotion[4].set(it->second);
+            } else if (it->first == "rage") {
+                emotion[5].set(it->second);
+            } else if (it->first == "sad") {
+                emotion[6].set(it->second);
+            } else if (it->first == "smile") {
+                emotion[7].set(it->second);
+            } else if (it->first == "surprise") {
+                emotion[8].set(it->second);
+            }
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -121,7 +146,7 @@ void ofApp::draw(){
     ofSetColor(ofColor::white);
     string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, 2);
     ofDrawBitmapString(straubiopitch, 15, 280);
-    
+
     gui.draw();
 }
 
