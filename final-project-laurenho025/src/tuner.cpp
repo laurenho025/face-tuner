@@ -3,6 +3,8 @@
 #include <string>
 #include <math.h>
 
+#include <iostream>
+
 using std::vector;
 using std::find;
 using std::pair;
@@ -31,16 +33,35 @@ int Tuner::FindClosestPitch(string selectednote, float measuredmidi) {
 }
 
 map<string, double> Tuner::ClassifyDifference() {
-    map<string, double> emotionweights;
-    if (difference > 0) {
-        emotionweights.insert(pair<string, double>("fury", 1));
-        emotionweights.insert(pair<string, double>("rage", 1));
+    map<string, double> emotionclassifications;
+    if (difference <= 6 && difference >= 4) {
+        emotionclassifications.insert(pair<string, double>("fury", 1));
+        emotionclassifications.insert(pair<string, double>("rage", 1));
+    }
+    if (difference < 4 && difference >= 2) {
+        emotionclassifications.insert(pair<string, double>("cry", 1));
+        emotionclassifications.insert(pair<string, double>("sad", 1));
+    }
+    if (difference < 2 && difference > 0) {
+        emotionclassifications.insert(pair<string, double>("grin", 0.4));
+        emotionclassifications.insert(pair<string, double>("laugh", 0.4));
+        emotionclassifications.insert(pair<string, double>("smile", 0.4));
     }
     if (difference == 0) {
-        emotionweights.insert(pair<string, double>("grin", 0.5));
-        emotionweights.insert(pair<string, double>("laugh", 0.5));
-        emotionweights.insert(pair<string, double>("smile", 0.5));
+        emotionclassifications.insert(pair<string, double>("grin", 0.5));
+        emotionclassifications.insert(pair<string, double>("laugh", 0.5));
+        emotionclassifications.insert(pair<string, double>("smile", 0.5));
     }
-    return emotionweights;
+    return emotionclassifications;
 }
 
+map<string, double> Tuner::CalculateEmotionWeight(map<string, double> emotionclassifications) {
+    map<string, double> emotionswithweight;
+    map<string, double>::iterator it;
+    double standardized_diff = fmod(difference, 2.0);
+    for (it = emotionclassifications.begin(); it != emotionclassifications.end(); it++) {
+        it->second = standardized_diff / 2;
+        emotionswithweight.insert(pair<string, double>(it->first, it->second));
+    }
+    return emotionswithweight;
+}

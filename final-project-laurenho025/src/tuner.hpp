@@ -24,11 +24,6 @@ public:
     // Classifies the size of the MIDI difference as a corresponding facial emotion as a string
     map<string, double> ClassifyDifference();
     
-    double CalculateEmotionWeight();
+    // Calculates the weight of each classified emotion
+    map<string, double> CalculateEmotionWeight(map<string, double> emotionclassifications);
 };
-
-// possible emotions: anger, cry, fury, grin, laugh, rage, sad, smile, surprise
-// Classifying difference:
-// 6 bad- fury 1, rage 1
-// 0 perfect- grin 0.5, laugh 0.5, smile 0.5
-//
