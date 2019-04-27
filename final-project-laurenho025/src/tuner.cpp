@@ -60,7 +60,7 @@ map<string, double> Tuner::CalculateEmotionWeight(map<string, double> emotioncla
     map<string, double>::iterator it;
     double standardized_diff = fmod(difference, 2.0);
     for (it = emotionclassifications.begin(); it != emotionclassifications.end(); it++) {
-        it->second = standardized_diff / 2;
+        it->second = (standardized_diff / 2) * it->second;
         emotionswithweight.insert(pair<string, double>(it->first, it->second));
     }
     return emotionswithweight;

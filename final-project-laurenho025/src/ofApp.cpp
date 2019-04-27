@@ -83,20 +83,22 @@ void audioOut(){
 //--------------------------------------------------------------
 void ofApp::update(){
     face.update();
+
+    if (pitch.latestPitch == 0) {
+        // Reset the facial emotions to 0
+        for (int i = 0; i < 9; i++) {
+            emotion[i].set(0);
+        }
+    }
     
     // Calculate tuner values
     int closestpitch = tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch);
-
-    // Reset the facial emotions
-    for (int i = 0; i < 9; i++) {
-        emotion[i].set(0);
-    }
 
     if (closestpitch != 0) {
         map<string, double> emotionclassifications = tuner.ClassifyDifference();
         map<string, double> emotionsweighted = tuner.CalculateEmotionWeight(emotionclassifications);
         
-        // Set the classified and weighted emotions calculated from the map
+        // Set the classified and weighted emotions calculated from the tuner map
         map<string, double>::iterator it;
         for (it = emotionsweighted.begin(); it != emotionsweighted.end(); it++) {
             if (it->first == "anger") {
