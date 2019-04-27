@@ -85,7 +85,7 @@ void ofApp::update(){
     face.update();
 
     if (pitch.latestPitch == 0) {
-        // Reset the facial emotions to 0
+        // Reset the facial emotions to 0 if there is no pitch playing
         for (int i = 0; i < 9; i++) {
             emotion[i].set(0);
         }
@@ -150,7 +150,7 @@ void ofApp::draw(){
     ofSetColor(ofColor::white);
     string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, 2);
     ofDrawBitmapString(straubiopitch, 15, 280);
-
+    
     gui.draw();
 }
 

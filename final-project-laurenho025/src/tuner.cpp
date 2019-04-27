@@ -56,6 +56,10 @@ map<string, double> Tuner::ClassifyDifference() {
 }
 
 map<string, double> Tuner::CalculateEmotionWeight(map<string, double> emotionclassifications) {
+    if (difference == 0) {
+        return emotionclassifications;
+    }
+    
     map<string, double> emotionswithweight;
     map<string, double>::iterator it;
     double standardized_diff = fmod(difference, 2.0);
