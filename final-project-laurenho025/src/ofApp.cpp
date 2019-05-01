@@ -7,20 +7,20 @@ void ofApp::setup(){
     
     gui.setup();
     
-    // Sets note selector dropdown
+    // Setup the note selector dropdown menu
     notesoptions.setName("Choose a note");
     notesdropdown = make_unique<ofxDropdown>(notesoptions);
     vector<string> notes = { "A", "B", "C", "D", "E", "F", "G" };
     notesdropdown->add(notes);
     gui.add(notesdropdown.get());
     
-    // Set up 3d face animation
-    // Set the mesh data
+    // Set up the 3D face model (code derived from ofxFacialBlendShape example project)
+    // Load the facial mesh data
     ofMesh headmesh;
     ofxObjLoader::load("model/head-reference.obj", headmesh);
     face.setTempleteModel(headmesh);
     
-    // Set the face's emotions
+    // Load the 9 possible facial emotions
     ofMesh model[constants::kNumberOfEmotions];
     ofxObjLoader::load("model/head-01-anger.obj", model[0]);
     ofxObjLoader::load("model/head-02-cry.obj", model[1]);
@@ -35,10 +35,10 @@ void ofApp::setup(){
         face.addModel(model[i]);
     }
     
-    // Set the emotion parameter
+    // Setup the emotion parameter
     emotion = new ofParameter<float> [constants::kNumberOfEmotions];
     
-    // Set up the gui emotion viewer
+    // Setup the gui emotion viewer
     gui.add(emotion[0].set("anger", 0, 0, 1.0));
     gui.add(emotion[1].set("cry", 0, 0, 1.0));
     gui.add(emotion[2].set("fury", 0, 0, 1.0));
@@ -85,22 +85,21 @@ void audioOut(){
 void ofApp::update(){
     face.update();
 
-    if (pitch.latestPitch == 0) {
-        // Reset the facial emotions to 0 if there is no pitch playing
-        for (int i = 0; i < constants::kNumberOfEmotions; i++) {
-            emotion[i].set(0);
-        }
+    // Reset the facial emotions to 0
+    for (int i = 0; i < constants::kNumberOfEmotions; i++) {
+        emotion[i].set(0);
     }
-    
-    // Calculate tuner values
-    int closestpitch = tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch);
 
+    // Calculate the closest pitch to tune to
+    int closestpitch = tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch);
+    
+    // If there is a pitch currently playing and the MIDI number is valid, calculate and set the approriate emotions
     if (closestpitch != 0) {
-        map<string, double> emotionclassifications = tuner.ClassifyDifference();
-        map<string, double> emotionsweighted = tuner.CalculateEmotionWeight(emotionclassifications);
+        map<string, float> emotionclassifications = tuner.ClassifyDifference();
+        map<string, float> emotionsweighted = tuner.CalculateEmotionWeight(emotionclassifications);
         
         // Set the classified and weighted emotions calculated from the tuner map
-        map<string, double>::iterator it;
+        map<string, float>::iterator it;
         for (it = emotionsweighted.begin(); it != emotionsweighted.end(); it++) {
             if (it->first == "anger") {
                 emotion[0].set(it->second);
@@ -128,7 +127,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    // Code to draw the face animation used from the ofxFacialBlendShape example project
+    // Code to draw the face animation derived from the ofxFacialBlendShape example project
     ofBackgroundGradient(ofColor(64), ofColor(0));
     
     cam.begin();
@@ -147,10 +146,19 @@ void ofApp::draw(){
     
     cam.end();
     
-    // Draw the pitch MIDI note
+    // Draw the measured pitch MIDI note value
     ofSetColor(ofColor::white);
-    string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, constants::kNumberOfInputChannels);
+    string straubiopitch = "Pitch MIDI Note: " + ofToString(pitch.latestPitch, constants::kNumberOfInputChannels);
     ofDrawBitmapString(straubiopitch, 15, 280);
+    
+    string targetpitch = "Target MIDI Note: " + ofToString(tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch));
+    ofDrawBitmapString(targetpitch, 15, 300);
+    
+    string difference = "Difference: " + ofToString(tuner.GetDifference());
+    ofDrawBitmapString(difference, 15, 320);
+    
+//    string test = ofToString(emotionsweighted.size());
+//    ofDrawBitmapString(test, 15, 340);
     
     gui.draw();
 }

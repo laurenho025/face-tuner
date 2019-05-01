@@ -52,4 +52,5 @@ class ofApp : public ofBaseApp{
     
     // Tuner object
     Tuner tuner;
+    
 };

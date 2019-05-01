@@ -9,63 +9,63 @@ using std::vector;
 using std::find;
 using std::pair;
 
-double Tuner::GetDifference() {
+float Tuner::GetDifference() {
     return difference;
 }
 
-int Tuner::FindClosestPitch(string selectednote, float measuredmidi) {
-    // MIDI note value can only be 21-127
+float Tuner::FindClosestPitch(string selectednote, float measuredmidi) {
+    // MIDI note number can only be 21-127
     if (selectednote == "" || measuredmidi < 21 || measuredmidi > 127) {
         difference = 0;
         return 0;
     }
     
-    double selectedmidi = kNoteToMidi.find(selectednote[0])->second;
+    float selectedmidi = kNoteToMidi.find(selectednote[0])->second;
     difference = abs(selectedmidi - measuredmidi);
-    int targetmidi = selectedmidi;
-    for (int i = selectedmidi; i <= 127; i += 12) {
+    float targetmidi = selectedmidi;
+    for (double i = selectedmidi; i <= 127; i += 12) {
         if (abs(i - measuredmidi) < difference) {
-            difference = floor(abs(i - measuredmidi));
+            difference = abs(i - measuredmidi);
             targetmidi = i;
         }
     }
     return targetmidi;
 }
 
-map<string, double> Tuner::ClassifyDifference() {
-    map<string, double> emotionclassifications;
+map<string, float> Tuner::ClassifyDifference() {
+    map<string, float> emotionclassifications;
+    if (floor(difference) == 0) {
+        emotionclassifications.insert(pair<string, float>("grin", 0.5));
+        emotionclassifications.insert(pair<string, float>("laugh", 0.5));
+        emotionclassifications.insert(pair<string, float>("smile", 0.5));
+    }
     if (difference <= 6 && difference >= 4) {
-        emotionclassifications.insert(pair<string, double>("fury", 1));
-        emotionclassifications.insert(pair<string, double>("rage", 1));
+        emotionclassifications.insert(pair<string, float>("fury", 1));
+        emotionclassifications.insert(pair<string, float>("rage", 1));
     }
     if (difference < 4 && difference >= 2) {
-        emotionclassifications.insert(pair<string, double>("cry", 1));
-        emotionclassifications.insert(pair<string, double>("sad", 1));
+        emotionclassifications.insert(pair<string, float>("cry", 1));
+        emotionclassifications.insert(pair<string, float>("sad", 1));
     }
     if (difference < 2 && difference > 0) {
-        emotionclassifications.insert(pair<string, double>("grin", 0.4));
-        emotionclassifications.insert(pair<string, double>("laugh", 0.4));
-        emotionclassifications.insert(pair<string, double>("smile", 0.4));
-    }
-    if (difference == 0) {
-        emotionclassifications.insert(pair<string, double>("grin", 0.5));
-        emotionclassifications.insert(pair<string, double>("laugh", 0.5));
-        emotionclassifications.insert(pair<string, double>("smile", 0.5));
+        emotionclassifications.insert(pair<string, float>("grin", 0.4));
+        emotionclassifications.insert(pair<string, float>("laugh", 0.4));
+        emotionclassifications.insert(pair<string, float>("smile", 0.4));
     }
     return emotionclassifications;
 }
 
-map<string, double> Tuner::CalculateEmotionWeight(map<string, double> emotionclassifications) {
-    if (difference == 0) {
+map<string, float> Tuner::CalculateEmotionWeight(map<string, float> emotionclassifications) {
+    if (floor(difference) == 0) {
         return emotionclassifications;
     }
     
-    map<string, double> emotionswithweight;
-    map<string, double>::iterator it;
-    double standardized_diff = fmod(difference, 2.0);
+    map<string, float> emotionswithweight;
+    map<string, float>::iterator it;
+    float standardized_diff = fmod(difference, 2.0);
     for (it = emotionclassifications.begin(); it != emotionclassifications.end(); it++) {
         it->second = (standardized_diff / 2) * it->second;
-        emotionswithweight.insert(pair<string, double>(it->first, it->second));
+        emotionswithweight.insert(pair<string, float>(it->first, it->second));
     }
     return emotionswithweight;
 }
