@@ -157,9 +157,6 @@ void ofApp::draw(){
     string difference = "Difference: " + ofToString(tuner.GetDifference());
     ofDrawBitmapString(difference, 15, 320);
     
-//    string test = ofToString(emotionsweighted.size());
-//    ofDrawBitmapString(test, 15, 340);
-    
     gui.draw();
 }
 
