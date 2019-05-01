@@ -58,6 +58,7 @@
 		2B01BD0CEA4EA580DAC26C58 /* ofxAubioBlock.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxAubioBlock.h; path = ../../../../addons/ofxAubio/src/ofxAubioBlock.h; sourceTree = SOURCE_ROOT; };
 		3848DBED2270123C000F4B66 /* aubio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = aubio.framework; path = "aubio-0.4.4.darwin_framework/aubio.framework"; sourceTree = "<group>"; };
 		3848DBF022701A40000F4B66 /* tunertests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tunertests.cpp; sourceTree = "<group>"; };
+		3866C86822779E6F0024E75C /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		44C0961009D36089EBA9C36F /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../../addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
 		481083C90D96C0AAA580E194 /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxButton.h; path = ../../../../addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
 		4871476B411FFA9EFD7C4871 /* glm.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = glm.h; path = ../../../../addons/ofxObjLoader/libs/glm.h; sourceTree = SOURCE_ROOT; };
@@ -727,6 +728,7 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				0717576E97FD87F43FB63322 /* tuner.cpp */,
 				E3D193748778074CFD1030D7 /* tuner.hpp */,
+				3866C86822779E6F0024E75C /* constants.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

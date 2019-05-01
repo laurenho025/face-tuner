@@ -24,6 +24,6 @@ public:
     // Classifies the size of the MIDI difference as a corresponding facial emotion as a string
     map<string, double> ClassifyDifference();
     
-    // Calculates the weight of each classified emotion
+    // Calculates the "weight" of each classified emotion
     map<string, double> CalculateEmotionWeight(map<string, double> emotionclassifications);
 };

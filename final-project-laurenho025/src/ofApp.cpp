@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "constants.h"
 #include <map>
 
 //--------------------------------------------------------------
@@ -20,7 +21,7 @@ void ofApp::setup(){
     face.setTempleteModel(headmesh);
     
     // Set the face's emotions
-    ofMesh model[9];
+    ofMesh model[constants::kNumberOfEmotions];
     ofxObjLoader::load("model/head-01-anger.obj", model[0]);
     ofxObjLoader::load("model/head-02-cry.obj", model[1]);
     ofxObjLoader::load("model/head-03-fury.obj", model[2]);
@@ -30,12 +31,12 @@ void ofApp::setup(){
     ofxObjLoader::load("model/head-07-sad.obj", model[6]);
     ofxObjLoader::load("model/head-08-smile.obj", model[7]);
     ofxObjLoader::load("model/head-09-surprise.obj", model[8]);
-    for (int i=0; i<9; i++) {
+    for (int i = 0; i < constants::kNumberOfEmotions; i++) {
         face.addModel(model[i]);
     }
     
     // Set the emotion parameter
-    emotion = new ofParameter<float> [9];
+    emotion = new ofParameter<float> [constants::kNumberOfEmotions];
     
     // Set up the gui emotion viewer
     gui.add(emotion[0].set("anger", 0, 0, 1.0));
@@ -56,25 +57,25 @@ void ofApp::setup(){
     
     // Set up ofSoundStream to take input from default mic
     soundstream.printDeviceList();
-    left.assign(256, 0.0);
-    right.assign(256, 0.0);
+    left.assign(constants::kBufferSize, 0.0);
+    right.assign(constants::kBufferSize, 0.0);
     ofSoundStreamSettings settings;
     auto devices = soundstream.getMatchingDevices("default");
     if(!devices.empty()){
         settings.setInDevice(devices[0]);
     }
     settings.setInListener(this);
-    settings.sampleRate = 44100;
-    settings.numOutputChannels = 0;
-    settings.numInputChannels = 2;
-    settings.bufferSize = 256;
+    settings.sampleRate = constants::kSampleRate;
+    settings.numOutputChannels = constants::kNumberOfOutputChannels;
+    settings.numInputChannels = constants::kNumberOfInputChannels;
+    settings.bufferSize = constants::kBufferSize;
     
     soundstream.setup(settings);
 }
 
 //--------------------------------------------------------------
 void ofApp::audioIn(ofSoundBuffer &input){
-    pitch.audioIn(input.getBuffer().data(), 256, 2);
+    pitch.audioIn(input.getBuffer().data(), constants::kBufferSize, constants::kNumberOfInputChannels);
 }
 
 void audioOut(){
@@ -86,7 +87,7 @@ void ofApp::update(){
 
     if (pitch.latestPitch == 0) {
         // Reset the facial emotions to 0 if there is no pitch playing
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < constants::kNumberOfEmotions; i++) {
             emotion[i].set(0);
         }
     }
@@ -148,7 +149,7 @@ void ofApp::draw(){
     
     // Draw the pitch MIDI note
     ofSetColor(ofColor::white);
-    string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, 2);
+    string straubiopitch = "Pitch MIDI Note Number: " + ofToString(pitch.latestPitch, constants::kNumberOfInputChannels);
     ofDrawBitmapString(straubiopitch, 15, 280);
     
     gui.draw();

@@ -10,3 +10,7 @@ During week 2, I mostly worked on the GUI template for my application and settin
 This week I worked on integrating the sound analyzer and ofxFacialBlendShape libraries together. However, after working on this with the ofxAudioAnalyzer add-on, I found that its pitch detection was extremely sensitive with my computer's mic. I tried to fix this by calculating the room's ambient sound at each setup and accounting for this, but this still didn't fix the add-on's sensitivity when calculating measured pitch. I ended up switching back to aubio instead, as its pitch detector is much more stable/standardized and measures in MIDI note value rather than hz, which is less sensitive and gave me more accurate pitch numbers. 
 
 Additionally, I made a separate class that does all the note calculations, which includes finding the nearest MIDI note pitch and classifying the MIDI difference as an emotion. To wrap up my project, I have to fix the "weighing" of the emotions, as it isn't displaying a smooth change of emotion weights for certain pitches. Also, I want to fix the dropdown menu issue, which isn't recognizing an empty parameter when the user unselects their choice. 
+
+
+## Week 4
+For this week, I focused on wrapping up the project and improving the emotion weight method. TODO: Improve on the difference accuracy, make buckets more specific, comments/clean-up
