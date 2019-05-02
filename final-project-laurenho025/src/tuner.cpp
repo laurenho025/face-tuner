@@ -55,7 +55,7 @@ map<string, float> Tuner::CalculateEmotionWeight(map<string, float> emotionclass
         return emotionclassifications;
     }
     
-    // Weight each emotion according to the size of the MIDI difference
+    // Weight each emotion according to the size of the current MIDI difference
     map<string, float> emotionswithweight;
     map<string, float>::iterator it;
     float standardized_diff = fmod(difference, 2.0);

@@ -23,7 +23,7 @@ public:
     // This function also calculates/updates the difference variable
     float FindClosestPitch(string selectednote, float measuredmidi);
     
-    // Classifies the size of the MIDI difference as a corresponding facial emotion as a string
+    // Classifies the size of the MIDI difference as a corresponding string facial emotion
     map<string, float> ClassifyDifference();
     
     // Calculates the "weight" of each classified emotion depending on the current MIDI difference
