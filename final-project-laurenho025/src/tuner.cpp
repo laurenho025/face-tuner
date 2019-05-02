@@ -14,12 +14,13 @@ float Tuner::GetDifference() {
 }
 
 float Tuner::FindClosestPitch(string selectednote, float measuredmidi) {
-    // MIDI note number can only be 21-127
+    // A valid MIDI note number can only be between 21-127
     if (selectednote == "" || measuredmidi < 21 || measuredmidi > 127) {
         difference = 0;
         return 0;
     }
     
+    // Cycle through the possible pitches for the selected note and find the smallest difference
     float selectedmidi = kNoteToMidi.find(selectednote[0])->second;
     difference = abs(selectedmidi - measuredmidi);
     float targetmidi = selectedmidi;
@@ -34,15 +35,15 @@ float Tuner::FindClosestPitch(string selectednote, float measuredmidi) {
 
 map<string, float> Tuner::ClassifyDifference() {
     map<string, float> emotionclassifications;
-    if (difference <= 6 && difference >= 4) {
+    // Classify the difference as a corresponding facial emotion,
+    // and populate a map of emotions corresponding to their initial "weights"
+    if (difference >= 4 && difference <= 6) {
         emotionclassifications.insert(pair<string, float>("fury", 1));
         emotionclassifications.insert(pair<string, float>("rage", 1));
-    }
-    if (difference < 4 && difference >= 2) {
+    } else if (difference >= 2 && difference < 4) {
         emotionclassifications.insert(pair<string, float>("cry", 1));
         emotionclassifications.insert(pair<string, float>("sad", 1));
-    }
-    if (difference < 2 && difference >= 0) {
+    } else if (difference >= 0 && difference < 2) {
         emotionclassifications.insert(pair<string, float>("grin", 0.5));
         emotionclassifications.insert(pair<string, float>("laugh", 0.5));
         emotionclassifications.insert(pair<string, float>("smile", 0.5));
@@ -51,10 +52,12 @@ map<string, float> Tuner::ClassifyDifference() {
 }
 
 map<string, float> Tuner::CalculateEmotionWeight(map<string, float> emotionclassifications) {
+    // If the difference is negligible, do not alter the initial emotion weight
     if (difference <= 0.1) {
         return emotionclassifications;
     }
     
+    // Weight each emotion according to the size of the MIDI difference
     map<string, float> emotionswithweight;
     map<string, float>::iterator it;
     float standardized_diff = fmod(difference, 2.0);

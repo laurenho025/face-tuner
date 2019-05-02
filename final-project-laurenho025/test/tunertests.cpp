@@ -37,7 +37,7 @@
 //TEST_CASE("MIDI difference is correctly classified as an emotion") {
 //    Tuner tuner;
 //    tuner.FindClosestPitch("C", 62);
-//    map<string, double> classifiedemotions = tuner.ClassifyDifference();
+//    map<string, float> classifiedemotions = tuner.ClassifyDifference();
 //
 //    SECTION("Map is the correct size") {
 //        REQUIRE(classifiedemotions.size() == 2);
@@ -51,8 +51,8 @@
 //TEST_CASE("Emotion weights are correctly calculated") {
 //    Tuner tuner;
 //    tuner.FindClosestPitch("C", 65);
-//    map<string, double> classifiedemotions = tuner.ClassifyDifference();
-//    map<string, double> emotionsweighted = tuner.CalculateEmotionWeight(classifiedemotions);
+//    map<string, float> classifiedemotions = tuner.ClassifyDifference();
+//    map<string, float> emotionsweighted = tuner.CalculateEmotionWeight(classifiedemotions);
 //    
 //    SECTION("Difference is 5, so emotion weight should be 0.5") {
 //        REQUIRE(emotionsweighted.begin()->second == 0.5);

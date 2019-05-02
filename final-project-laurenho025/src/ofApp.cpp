@@ -15,22 +15,20 @@ void ofApp::setup(){
     gui.add(notesdropdown.get());
     
     // Set up the 3D face model (code derived from ofxFacialBlendShape example project)
-    // Load the facial mesh data
+    // Load the facial mesh data from the file
     ofMesh headmesh;
     ofxObjLoader::load("model/head-reference.obj", headmesh);
     face.setTempleteModel(headmesh);
     
-    // Load the 9 possible facial emotions
+    // Load the 7 possible facial emotions
     ofMesh model[constants::kNumberOfEmotions];
-    ofxObjLoader::load("model/head-01-anger.obj", model[0]);
-    ofxObjLoader::load("model/head-02-cry.obj", model[1]);
-    ofxObjLoader::load("model/head-03-fury.obj", model[2]);
-    ofxObjLoader::load("model/head-04-grin.obj", model[3]);
-    ofxObjLoader::load("model/head-05-laugh.obj", model[4]);
-    ofxObjLoader::load("model/head-06-rage.obj", model[5]);
-    ofxObjLoader::load("model/head-07-sad.obj", model[6]);
-    ofxObjLoader::load("model/head-08-smile.obj", model[7]);
-    ofxObjLoader::load("model/head-09-surprise.obj", model[8]);
+    ofxObjLoader::load("model/head-02-cry.obj", model[0]);
+    ofxObjLoader::load("model/head-03-fury.obj", model[1]);
+    ofxObjLoader::load("model/head-04-grin.obj", model[2]);
+    ofxObjLoader::load("model/head-05-laugh.obj", model[3]);
+    ofxObjLoader::load("model/head-06-rage.obj", model[4]);
+    ofxObjLoader::load("model/head-07-sad.obj", model[5]);
+    ofxObjLoader::load("model/head-08-smile.obj", model[6]);
     for (int i = 0; i < constants::kNumberOfEmotions; i++) {
         face.addModel(model[i]);
     }
@@ -39,15 +37,13 @@ void ofApp::setup(){
     emotion = new ofParameter<float> [constants::kNumberOfEmotions];
     
     // Setup the gui emotion viewer
-    gui.add(emotion[0].set("anger", 0, 0, 1.0));
-    gui.add(emotion[1].set("cry", 0, 0, 1.0));
-    gui.add(emotion[2].set("fury", 0, 0, 1.0));
-    gui.add(emotion[3].set("grin", 0, 0, 1.0));
-    gui.add(emotion[4].set("laugh", 0, 0, 1.0));
-    gui.add(emotion[5].set("rage", 0, 0, 1.0));
-    gui.add(emotion[6].set("sad", 0, 0, 1.0));
-    gui.add(emotion[7].set("smile", 0, 0, 1.0));
-    gui.add(emotion[8].set("surprise", 0, 0, 1.0));
+    gui.add(emotion[0].set("cry", 0, 0, 1.0));
+    gui.add(emotion[1].set("fury", 0, 0, 1.0));
+    gui.add(emotion[2].set("grin", 0, 0, 1.0));
+    gui.add(emotion[3].set("laugh", 0, 0, 1.0));
+    gui.add(emotion[4].set("rage", 0, 0, 1.0));
+    gui.add(emotion[5].set("sad", 0, 0, 1.0));
+    gui.add(emotion[6].set("smile", 0, 0, 1.0));
     
     face.setEmotion(emotion);
     face.init();
@@ -98,27 +94,23 @@ void ofApp::update(){
         map<string, float> emotionclassifications = tuner.ClassifyDifference();
         map<string, float> emotionsweighted = tuner.CalculateEmotionWeight(emotionclassifications);
         
-        // Set the classified and weighted emotions calculated from the tuner map
+        // Set the classified and weighted emotions calculated from the tuner emotionsweighted map
         map<string, float>::iterator it;
         for (it = emotionsweighted.begin(); it != emotionsweighted.end(); it++) {
-            if (it->first == "anger") {
+            if (it->first == "cry") {
                 emotion[0].set(it->second);
-            } else if (it->first == "cry") {
-                emotion[1].set(it->second);
             } else if (it->first == "fury") {
-                emotion[2].set(it->second);
+                emotion[1].set(it->second);
             } else if (it->first == "grin") {
-                emotion[3].set(it->second);
+                emotion[2].set(it->second);
             } else if (it->first == "laugh") {
-                emotion[4].set(it->second);
+                emotion[3].set(it->second);
             } else if (it->first == "rage") {
-                emotion[5].set(it->second);
+                emotion[4].set(it->second);
             } else if (it->first == "sad") {
-                emotion[6].set(it->second);
+                emotion[5].set(it->second);
             } else if (it->first == "smile") {
-                emotion[7].set(it->second);
-            } else if (it->first == "surprise") {
-                emotion[8].set(it->second);
+                emotion[6].set(it->second);
             }
         }
     }
@@ -146,17 +138,18 @@ void ofApp::draw(){
     
     cam.end();
     
-    // Draw the measured pitch MIDI note value
+    // Draw the target note, measured MIDI note, and the difference
     ofSetColor(ofColor::white);
-    string straubiopitch = "Pitch MIDI Note: " + ofToString(pitch.latestPitch, constants::kNumberOfInputChannels);
-    ofDrawBitmapString(straubiopitch, 15, 280);
     
-    string targetpitch = "Target MIDI Note: " + ofToString(tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch));
-    ofDrawBitmapString(targetpitch, 15, 300);
+    string targetnote = "Target MIDI Note: " + ofToString(tuner.FindClosestPitch(notesdropdown->getParameter().toString(), pitch.latestPitch));
+    ofDrawBitmapString(targetnote, 15, 200);
+    
+    string actualnote = "Measured MIDI Note: " + ofToString(pitch.latestPitch, constants::kNumberOfInputChannels);
+    ofDrawBitmapString(actualnote, 15, 220);
     
     string difference = "Difference: " + ofToString(tuner.GetDifference());
-    ofDrawBitmapString(difference, 15, 320);
-    
+    ofDrawBitmapString(difference, 15, 240);
+        
     gui.draw();
 }
 
