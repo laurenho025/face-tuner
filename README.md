@@ -15,6 +15,7 @@ The only dependencies needed are openFrameworks addons.
 
 ## Screenshots:
 Below are some screenshots of the application's main window.
+
 No target note selected:
 ![image](https://github.com/uiuc-sp19-cs126/final-project-laurenho025/blob/master/Screenshots/Screen%20Shot%202019-05-01%20at%2010.31.00%20PM.png)
 
