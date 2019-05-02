@@ -13,4 +13,8 @@ Additionally, I made a separate class that does all the note calculations, which
 
 
 ## Week 4
-For this week, I focused on wrapping up the project and improving the emotion weight method. TODO: Improve on the difference accuracy, make buckets more specific, comments/clean-up
+For this week, I focused on wrapping up the project and improving the emotion weight method. I found that there was something wrong with the math/algorithm when "weighing" the emotions, so I fixed that and got the emotions to be weighed properly. 
+
+Additionally, the "buckets" that I was using to classify the difference as a corresponing emotion were not accurate and did not work when the measured pitch was very close to the target pitch. To fix this, I made the buckets more specific, and had to fix some of the conditional statements to work as expected. 
+
+Lastly, I cleaned up the code and improved on style by adding comments and removing unecessary code. For example, I removed the unecessary functions in the ofApp files. I also added a separate namespace for a lot of the constants I was reusing in my ofApp.cpp file. 

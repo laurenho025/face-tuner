@@ -74,9 +74,6 @@ void ofApp::audioIn(ofSoundBuffer &input){
     pitch.audioIn(input.getBuffer().data(), constants::kBufferSize, constants::kNumberOfInputChannels);
 }
 
-void audioOut(){
-}
-
 //--------------------------------------------------------------
 void ofApp::update(){
     face.update();
@@ -154,21 +151,6 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
     // Code used from the ofxFacialBlendShape example project
     float length = 200;
@@ -177,39 +159,4 @@ void ofApp::mouseDragged(int x, int y, int button){
     } else {
         cam.enableMouseInput();
     }
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
 }

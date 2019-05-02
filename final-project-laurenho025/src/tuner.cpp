@@ -3,8 +3,6 @@
 #include <string>
 #include <math.h>
 
-#include <iostream>
-
 using std::vector;
 using std::find;
 using std::pair;
